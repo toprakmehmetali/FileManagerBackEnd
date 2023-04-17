@@ -11,7 +11,7 @@ namespace Entities.Dtos
     {
         public int UserId { get; set; }
 
-        public int FolderId { get; set; }
+        public int? FolderId { get; set; }
 
         public string Name { get; set; }
 

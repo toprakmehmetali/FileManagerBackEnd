@@ -44,6 +44,11 @@ public class FolderManager : IFolderService
         return new SuccessDataResult<List<Folder>>(folderDal.GetList(f=>f.FolderId == folderId).ToList());
     }
 
+    public IDataResult<List<string>> GetFolderLocation(int folderId)
+    {
+        return new SuccessDataResult<List<string>>(this.folderDal.GetFolderLocation(folderId));
+    }
+
     public IResult Update(Folder folder)
     {
         this.folderDal.Update(folder);

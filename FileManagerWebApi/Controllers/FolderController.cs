@@ -24,6 +24,12 @@ namespace FileManagerWebApi.Controllers
             return Ok(result.Data);
         }
 
+        [HttpGet("getfolderlocationbyid")]
+        public IActionResult GetFolderLocationById(int folderId)
+        {
+            var result = folderService.GetFolderLocation(folderId);
+            return Ok(result);
+        }
 
         [HttpPost("add")]
         public IActionResult Add(FolderForCreateDto folderForCreateDto)

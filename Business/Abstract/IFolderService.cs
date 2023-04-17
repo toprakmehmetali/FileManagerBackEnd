@@ -11,5 +11,6 @@ public interface IFolderService
     IResult Add(FolderForCreateDto folderForCreateDto);
     IResult Delete(Folder folder);
     IResult Update(Folder folder);
+    IDataResult<List<string>> GetFolderLocation(int folderId);
 
 }
