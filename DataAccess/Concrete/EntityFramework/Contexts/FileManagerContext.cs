@@ -33,6 +33,10 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 .WithMany(u => u.Folders)
                 .HasForeignKey(f=>f.UserId);
 
+            modelBuilder.Entity<Extension>()
+                .HasIndex(e => e.Name)
+                .IsUnique();
+
         }
     }
 }

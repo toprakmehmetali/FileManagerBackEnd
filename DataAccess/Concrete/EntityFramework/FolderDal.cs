@@ -9,7 +9,7 @@ namespace DataAccess.Concrete.EntityFramework;
 
 public class FolderDal : EfEntityRepositoryBase<Folder, FileManagerContext>, IFolderDal
 {
-    public List<string> GetFolderLocation(int folderId)
+    public List<string> GetFolderLocationById(int folderId)
     {
         List<string> location = new();
         using (var context = new FileManagerContext())

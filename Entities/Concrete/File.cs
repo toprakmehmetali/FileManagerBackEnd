@@ -13,10 +13,11 @@ namespace Entities.Concrete
 
         public int FolderId { get; set; }
 
+        public int? UserId { get; set; }
 
         public string Name { get; set; }
 
-        public string Extension { get; set; }
+        public int ExtensionId { get; set; }
 
         public DateTime UploadeDateTime { get; set; }
         public bool IsPrivate { get; set; }
@@ -25,7 +26,9 @@ namespace Entities.Concrete
 
         public float Size { get; set; }
 
-        
+        public User user { get; set; }
         public Folder Folder { get; set; }
+
+        public Extension Extension { get; set; }
     }
 }

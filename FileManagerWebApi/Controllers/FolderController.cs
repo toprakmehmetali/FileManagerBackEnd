@@ -27,7 +27,14 @@ namespace FileManagerWebApi.Controllers
         [HttpGet("getfolderlocationbyid")]
         public IActionResult GetFolderLocationById(int folderId)
         {
-            var result = folderService.GetFolderLocation(folderId);
+            var result = folderService.GetFolderLocationById(folderId);
+            return Ok(result);
+        }
+
+        [HttpGet("getchildfolderbyid")]
+        public IActionResult GetChildFolderById(int folderId)
+        {
+            var result = folderService.GetChildFoldersByFolderId(folderId);
             return Ok(result);
         }
 
@@ -56,9 +63,9 @@ namespace FileManagerWebApi.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Folder folder)
+        public IActionResult Delete(FolderForDelete folderForDelete)
         {
-            var result = folderService.Delete(folder);
+            var result = folderService.Delete(folderForDelete);
             if (result.Success)
             {
                 return Ok(result.Message);

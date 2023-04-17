@@ -15,6 +15,8 @@ namespace Business.Mapper.Automapper
         public BusinessMapperProfile()
         {
             CreateMap<Folder, FolderForCreateDto>().ReverseMap();
+
+            CreateMap<Folder, FolderForDelete>().ReverseMap();
         }
     }
 }

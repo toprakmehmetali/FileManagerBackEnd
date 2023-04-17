@@ -4,6 +4,7 @@ using DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(FileManagerContext))]
-    partial class FileManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20230417233133_mig_3")]
+    partial class mig_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,26 +60,6 @@ namespace DataAccess.Migrations
                     b.ToTable("UserOperationClaims");
                 });
 
-            modelBuilder.Entity("Entities.Concrete.Extension", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Extension");
-                });
-
             modelBuilder.Entity("Entities.Concrete.File", b =>
                 {
                     b.Property<int>("Id")
@@ -86,8 +68,9 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ExtensionId")
-                        .HasColumnType("int");
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FolderId")
                         .HasColumnType("int");
@@ -112,8 +95,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ExtensionId");
 
                     b.HasIndex("FolderId");
 
@@ -205,12 +186,6 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Concrete.File", b =>
                 {
-                    b.HasOne("Entities.Concrete.Extension", "Extension")
-                        .WithMany("Files")
-                        .HasForeignKey("ExtensionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Entities.Concrete.Folder", "Folder")
                         .WithMany("Files")
                         .HasForeignKey("FolderId")
@@ -220,8 +195,6 @@ namespace DataAccess.Migrations
                     b.HasOne("Entities.Concrete.User", "user")
                         .WithMany("Files")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Extension");
 
                     b.Navigation("Folder");
 
@@ -241,11 +214,6 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Entities.Concrete.Extension", b =>
-                {
-                    b.Navigation("Files");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Folder", b =>

@@ -17,7 +17,6 @@ namespace Entities.Concrete
 
         public string Name { get; set; }
 
-        public string Type { get; set; }
 
         public DateTime CreateDateTime { get; set; }
 
