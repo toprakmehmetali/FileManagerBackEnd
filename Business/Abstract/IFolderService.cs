@@ -1,14 +1,15 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.Dtos;
 
 namespace Business.Abstract;
 
 public interface IFolderService
 {
     IDataResult<Folder> GetById(int folderId);
-    IDataResult<List<Folder>> GetListByFolderId(int folderId);
-    IResult Add(Folder file);
-    IResult Delete(Folder file);
-    IResult Update(Folder file);
+    IDataResult<List<Folder>> GetChildFoldersByFolderId(int folderId);
+    IResult Add(FolderForCreateDto folderForCreateDto);
+    IResult Delete(Folder folder);
+    IResult Update(Folder folder);
 
 }

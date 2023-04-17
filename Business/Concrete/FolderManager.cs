@@ -1,27 +1,37 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 
 namespace Business.Concrete;
 
 public class FolderManager : IFolderService
 {
     private IFolderDal folderDal;
+    private IMapper mapper;
 
-    public FolderManager(IFolderDal folderDal)
+    public FolderManager(IFolderDal folderDal,IMapper mapper)
     {
         this.folderDal = folderDal;
+        this.mapper = mapper;
     }
 
-    public IResult Add(Folder file)
+    public IResult Add(FolderForCreateDto folderForCreateDto)
     {
-        throw new NotImplementedException();
+        Folder folder = mapper.Map<Folder>(folderForCreateDto);
+        folder.Size = 0;
+        folder.CreateDateTime = DateTime.Now;
+        folder.Type = "folder";
+        this.folderDal.Add(folder);
+        return new SuccessResult();
     }
 
     public IResult Delete(Folder folder)
     {
-        throw new NotImplementedException();
+        this.folderDal.Delete(folder);
+        return new SuccessResult();
     }
 
     public IDataResult<Folder> GetById(int folderId)
@@ -29,13 +39,14 @@ public class FolderManager : IFolderService
         return new SuccessDataResult<Folder>(folderDal.Get(f => f.Id == folderId));
     }
 
-    public IDataResult<List<Folder>> GetListByFolderId(int folderId)
+    public IDataResult<List<Folder>> GetChildFoldersByFolderId(int folderId)
     {
-        throw new NotImplementedException();
+        return new SuccessDataResult<List<Folder>>(folderDal.GetList(f=>f.FolderId == folderId).ToList());
     }
 
-    public IResult Update(Folder file)
+    public IResult Update(Folder folder)
     {
-        throw new NotImplementedException();
+        this.folderDal.Update(folder);
+        return new SuccessResult();
     }
 }

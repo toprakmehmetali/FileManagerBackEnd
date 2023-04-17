@@ -7,4 +7,5 @@ namespace DataAccess.Concrete.EntityFramework;
 
 public class FolderDal : EfEntityRepositoryBase<Folder, FileManagerContext>, IFolderDal
 {
+
 }
